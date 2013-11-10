@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block cssfiles %}
+{% load staticfiles %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block jsfiles %}
+{% load staticfiles %}
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>    
+{% endblock %}
+
+{% block content %}    
+    {% if alert %}
+    <div class="alert alert-success">
+        {{ alert }}
+    </div>
+    {% endif %}
+    <form name="form_item" id="id_form_item" action="{% if formItem.instance.id %}/item/edit/{{ formItem.instance.id }}/{% else %}/item/new/{% endif %}" class="form" role="form" method="POST">        
+        <div class="control-group {% if formItem.name.errors %} error {% endif %}">
+            {{ formItem.name.label_tag }}
+            <div class="controls">
+                {{ formItem.name }}
+                {% if formItem.name.errors %}
+                    <span class="help-inline">
+                        {{ formItem.name.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group {% if formItem.url.errors %} error {% endif %}">
+            {{ formItem.url.label_tag }}
+            <div class="controls"> 
+                {{ formItem.url }}
+                {% if formItem.url.errors %}
+                    <span class="help-inline">
+                        {{ formItem.url.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group {% if formItem.category.errors %} error {% endif %}">
+            {{ formItem.category.label_tag }}
+            <div class="controls">
+                {{ formItem.category }}
+                {% if formItem.category.errors %}
+                    <span class="help-inline">
+                        {{ formItem.category.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group {% if formItem.username.errors %} error {% endif %}">
+            {{ formItem.username.label_tag }}
+            <div class="controls">
+                {{ formItem.username }}
+                {% if formItem.username.errors %}
+                    <span class="help-inline">
+                        {{ formItem.username.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group {% if formItem.password.errors %} error {% endif %}">
+            {{ formItem.password.label_tag }}
+            <div class="controls">                
+                <div class="input-append">
+                    <input class="form-control input-block-level" id="id_password" name="password" placeholder="Password" type="password" value="{{ formItem.instance.password }}" />
+                    <button class="btn btn_password" id="btn_password" onClick="return false;"><i class="icon-eye-close"></i></button>
+                </div>
+                <div class="input-append">
+                    <input class="form-control input-block-level" id="id_password_rep" name="password_rep" placeholder="Password again" type="password" value="{% if formItem.instance.id %}{{ formItem.instance.password }}{% else %}{{ formItem.data.password_rep }}{% endif %}" />
+                    <button class="btn btn_password" id="btn_password_rep" onClick="return false;"><i class="icon-eye-close"></i></button>
+                </div>
+                <br>
+                {% if formItem.password.errors %}
+                    <span class="help-inline">
+                        {{ formItem.password.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="checkbox">
+                <label>
+                    <input name="never_expire" id="id_never_expire" type="checkbox"> Never Expire
+                </label>
+            </div>
+        </div>
+        <div class="control-group {% if formItem.expire_at.errors %} error {% endif %}" id="id_expire_at_control">
+            <div class="controls">
+                <div class="input-append date datepicker" data-date="{% now "d/m/Y" %}" data-date-format="dd/mm/yyyy">                
+                    <input class="input-block-level" name="expire_at" id="id_expire_at" type="text" value="{% if formItem.instance.expire_at %}  {{ formItem.instance.expire_at|date:'d/m/Y' }} {% else %} {% now "d/m/Y" %} {% endif %}" />
+                    <span class="add-on"><i class="icon-th"></i></span>                            
+                </div>
+                <br>
+                {% if formItem.expire_at.errors %}
+                    <span class="help-inline">
+                        {{ formItem.expire_at.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group {% if formItem.comments.errors %} error {% endif %}">
+            {{ formItem.comments.label_tag }}
+            <div class="controls">
+                {{ formItem.comments }}
+                {% if formItem.comments.errors %}
+                    <span class="help-inline">
+                        {{ formItem.comments.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary pull-right">{% if formItem.instance.id %}Update Item{% else %}Add Item{% endif %}</button>
+    </form>        
+    <script type="text/javascript">
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        $('.datepicker').datepicker();
+
+        $(".btn_password").click(function(){
+            var id = this.id.split('_')[1];
+            
+            if( $("#id_"+id).attr('type') == "text" ){
+                $("#id_"+id).attr('type',"password");
+                $("#id_"+id+"_rep").attr('type',"password");
+
+                $("#btn_" + id + " i").removeClass("icon-eye-open");
+                $("#btn_" + id + " i").addClass("icon-eye-close");
+                $("#btn_" + id + "_rep i").removeClass("icon-eye-open");
+                $("#btn_" + id + "_rep i").addClass("icon-eye-close");
+            }
+            else{
+                $("#id_"+id).attr('type',"text");
+                $("#id_"+id+"_rep").attr('type',"text");
+
+                $("#btn_" + id + " i").removeClass("icon-eye-close");
+                $("#btn_" + id + " i").addClass("icon-eye-open");
+                $("#btn_" + id + "_rep i").removeClass("icon-eye-close");
+                $("#btn_" + id + "_rep i").addClass("icon-eye-open");
+            }
+        });
+
+        $("#id_never_expire").change(function(){
+            if( $(this).is(":checked") ){
+                $("#id_expire_at_control").hide();
+                $("#id_expire_at").val("");
+            }
+            else{
+                $("#id_expire_at_control").show();
+                $("#id_expire_at").val("{% now "d/m/Y" %}");
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,4 +1,4 @@
-Nibiru
+nibiru
 ======
 
 Nibiru Passwords Manager

@@ -1,0 +1,32 @@
+{% extends "base_auth.html" %}
+
+{% block content %}
+    <form id='login' class='login-form' action="" method="POST" >
+        {% csrf_token %}
+        <h2 class="text-center">Nibiru Access</h2>        
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend" style="width: 100%;">
+              <span class="add-on"><i class="icon-user"></i></span>
+              <input type="text" name='username' id="username" class="input-login input-block-level" placeholder="username" value="{{ username }}" />
+            </div>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend" style="width: 100%;">
+              <span class="add-on"><i class="icon-lock"></i></span>
+              <input type="password" name='password' id="password" class="input-login input-block-level" placeholder="password" />
+            </div>
+          </div>
+        </div>
+        {% if message %}
+        <div class="control-group error text-center">
+            <span class="help-inline">{{ message }}</span>
+        </div>
+        {% endif %}
+        <div class="text-center">
+            <button class="btn btn-primary">Sign In</button>
+        </div>        
+    </form>
+{% endblock %}

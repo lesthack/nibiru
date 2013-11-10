@@ -1,0 +1,9 @@
+# pyc
+*.pyc
+
+# Sensitive information
+sensible.py
+
+# sublime
+*.sublime-workspace
+*.sublime-project

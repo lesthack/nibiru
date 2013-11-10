@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}    
+    {% if alert %}
+    <div class="alert alert-success">
+        {{ alert }}
+    </div>
+    {% endif %}
+    <form name="form_category" id="id_form_category" action="/category/new/" class="form" role="form" method="POST">
+        <div class="control-group {% if formCategory.name.errors %} error {% endif %}">
+            {{ formCategory.name.label_tag }}
+            <div class="controls">
+                {{ formCategory.name }}
+                {% if formCategory.name.errors %}
+                    <span class="help-inline">
+                        {{ formCategory.name.errors }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>        
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary pull-right">Add Category</button>
+    </form>        
+    <script type="text/javascript">
+    </script>
+{% endblock %}
