@@ -9,7 +9,7 @@ class itemForm(ModelForm):
     def __init__(self, user, *args, **kargs):
         super(itemForm, self).__init__(*args, **kargs)
         self.user = user
-        
+        self.fields['category'].queryset = category.objects.filter(created_by=self.user)
 
     class Meta:
         model = item
