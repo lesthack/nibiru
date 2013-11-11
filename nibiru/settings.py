@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'suit',
+    'suit',
     'django.contrib.admin',
     'web',
     #'debug_toolbar',
