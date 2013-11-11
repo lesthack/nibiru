@@ -15,8 +15,8 @@ nitems = 10
 
 @login_required(login_url='/auth')
 def index(request):	
-	return render_to_response('web_index.html',{			
-		}, context_instance=RequestContext(request))	
+	HttpResponseRedirect('/category/list/all/')
+	return render_to_response('web_index.html',{}, context_instance=RequestContext(request))	
 
 
 @login_required(login_url='/auth')
