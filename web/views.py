@@ -14,9 +14,8 @@ from web.forms import *
 nitems = 10
 
 @login_required(login_url='/auth')
-def index(request):	
-	HttpResponseRedirect('/category/list/all/')
-	return render_to_response('web_index.html',{}, context_instance=RequestContext(request))	
+def index(request):		
+	return HttpResponseRedirect('/category/list/all/')
 
 
 @login_required(login_url='/auth')
