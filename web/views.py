@@ -159,7 +159,7 @@ def AuthView(request):
                 try:
                     url_forward = request.GET["next"]
                 except:
-                    url_forward = '/'
+                    url_forward = '/category/list/all/'
 
                 return HttpResponseRedirect(url_forward)
             else:
