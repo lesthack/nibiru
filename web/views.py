@@ -60,11 +60,12 @@ def ItemEditView(request, item_id):
 		return HttpResponseRedirect('/category/list/all/')
 
 	if request.method == "POST":
-		formItem = itemForm(request.user, request.POST)
+		formItem = itemForm(request.user, request.POST, instance=viewItem)
 		if formItem.is_valid():
 			upd_item = formItem.save(commit=False)			
 			upd_item.save()			
 			alert = "Success !! Item has updated."
+			formItem = itemForm(request.user, instance=viewItem)
 	else:
 		formItem = itemForm(request.user, instance=viewItem)
 	
