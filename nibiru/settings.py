@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 import sys, traceback
+import os.path
 
 try:
     from sensible import *
@@ -54,7 +55,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/home/lesthack/public_html/django/nibiru/static/'
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'nibiru','static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -134,8 +135,8 @@ ROOT_URLCONF = 'nibiru.urls'
 WSGI_APPLICATION = 'nibiru.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/home/lesthack/public_html/django/nibiru/nibiru/templates',
-    '/home/lesthack/public_html/django/nibiru/web/templates',
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
+    os.path.join(os.path.dirname(__file__), 'web', 'templates').replace('\\','/'),    
 )
 
 INSTALLED_APPS = (
