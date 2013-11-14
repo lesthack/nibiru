@@ -7,3 +7,6 @@ sensible.py
 # sublime
 *.sublime-workspace
 *.sublime-project
+
+# suit
+static/*
