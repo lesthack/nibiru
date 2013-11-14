@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-from sensible import *
+import sys, traceback
+
+try:
+    from sensible import *
+except ImportError:
+    traceback.print_exc(file=sys.stdout)
+    print 'Help: \n\tCreate file sensible.py \n\tSample https://gist.github.com/lesthack/7469198'
+    sys.exit(0)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
