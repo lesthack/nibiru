@@ -11,7 +11,7 @@ from django.db.models import Q
 from web.models import *
 from web.forms import *
 
-nitems = 10
+nitems = 100
 
 @login_required(login_url='/auth')
 def index(request):		

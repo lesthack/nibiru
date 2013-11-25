@@ -85,7 +85,8 @@
                     $($(this).children('i')[0]).removeClass('icon-eye-open');
                     $($(this).children('i')[0]).addClass('icon-eye-close');
                 }
-            });            
+            });
+	    $("#search").focus();
         </script>
     {% else %}
         {% if name_category != 'all' %}
