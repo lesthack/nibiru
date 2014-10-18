@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 import sys, traceback
 import os.path
 
 try:
-    from sensible import *
+    from nibiru.sensible import *
 except ImportError:
     traceback.print_exc(file=sys.stdout)
-    print 'Help: \n\tCreate file sensible.py \n\tSample https://gist.github.com/lesthack/7469198'
+    print 'Help: \n\tCreate file sensible.py on nibiru directory. \n\tSample https://gist.github.com/lesthack/7469198'
     sys.exit(0)
 
 DEBUG = True
@@ -71,9 +70,8 @@ STATICFILES_DIRS = (
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -100,35 +98,6 @@ MIDDLEWARE_CLASSES = (
 #    'INTERCEPT_REDIRECTS': False,
 #}
 
-SUIT_CONFIG = {
-    # header
-    'ADMIN_NAME': 'Nibiru',
-    # 'HEADER_DATE_FORMAT': 'l, j. F Y',
-    # 'HEADER_TIME_FORMAT': 'H:i',
-
-    # forms
-    # 'SHOW_REQUIRED_ASTERISK': True,  # Default True
-    # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
-
-    # menu
-    # 'SEARCH_URL': '/admin/auth/user/',
-    # 'MENU_ICONS': {
-    #    'sites': 'icon-leaf',
-    #    'auth': 'icon-lock',
-    # },
-    # 'MENU_OPEN_FIRST_CHILD': True, # Default True
-    # 'MENU_EXCLUDE': ('auth.group',),
-    # 'MENU': (
-    #     'sites',
-    #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
-    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('auth.user', 'auth.group')},
-    #     {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
-    # ),
-
-    # misc
-    # 'LIST_PER_PAGE': 15    
-}
-
 ROOT_URLCONF = 'nibiru.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -146,18 +115,19 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'suit',
+    'grappelli',
     'django.contrib.admin',
     'web',
-    #'debug_toolbar',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
-    'web.context_processors.categorys'
+    'django.contrib.auth.context_processors.auth',
+    'web.context_processors.categorys',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -187,3 +157,9 @@ LOGGING = {
         },
     }
 }
+
+GRAPPELLI_ADMIN_TITLE = 'Nibiru'
+GRAPPELLI_AUTOCOMPLETE_LIMIT = 10
+GRAPPELLI_SWITCH_USER = True
+GRAPPELLI_CLEAN_INPUT_TYPES = True
+

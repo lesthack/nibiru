@@ -1,6 +1,9 @@
 # pyc
 *.pyc
 
+# swp
+*.swp
+
 # Sensitive information
 sensible.py
 

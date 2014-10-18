@@ -15,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^item/delete/(\d+)/$', 'web.views.ItemDeleteView'),
     url(r'^auth/$', 'web.views.AuthView'),
     url(r'^logout/$', 'web.views.LogoutView'),
+    (r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),    
 )

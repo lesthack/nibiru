@@ -17,7 +17,7 @@ class item(models.Model):
     category = models.ForeignKey(category)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
-    never_expire = models.BooleanField()
+    never_expire = models.BooleanField(default=False)
     expire_at = models.DateField(blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add = True)
