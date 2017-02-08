@@ -1,9 +1,14 @@
 {% extends "admin/base.html" %}
-
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% load static %}
+{% block title %}{{ title }} | {{ 'Nibiru Password Manager' }}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ 'Nibiru Password Manager' }}</a></h1>
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block nav-global %}
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript" src="{% static "js/custom.js" %}"></script>
+{% endblock %}
