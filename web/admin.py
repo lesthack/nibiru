@@ -36,9 +36,10 @@ class itemAdmin(nModelAdmin):
         return qs
     
     def sname(self, obj):
+        link = ''
         if obj.url.__len__() > 0:
-            return format_html(u'<a href="{url}">{name}</a>'.format(url=obj.url, name=obj.name))
-        return obj.name
+            link = '<a href="url"><span class="fa fa-link"></span></a>'.format(url=obj.url)
+        return format_html(u'<a href="/web/item/{id}/change/">{name}</a>&nbsp;{link}'.format(url=obj.url, name=obj.name, id=obj.id, link=link))
     sname.short_description = ''
     sname.allow_tags = True
     sname.admin_order_field = 'name'
