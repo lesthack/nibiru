@@ -7,14 +7,24 @@ SECRET_KEY = 'nuqy$5c&bv)yi_j98b!$ab54%b823lk_7vx!vyuy0y%n*3toc+'
 DEBUG = True
 HOST_NAME       = 'localhost'
 URL_HOST        = 'http://' + HOST_NAME
-ALLOWED_HOSTS   = ['localhost', HOST_NAME, '192.168.33.20', '192.168.1.83', '192.168.16.21', '192.168.1.72']
+ALLOWED_HOSTS   = ['localhost', HOST_NAME]
+
+ADMINS = (
+    ('', ''),
+)
 
 try:
     from nibiru.sensible import *
 except ImportError:
-    traceback.print_exc(file=sys.stdout)
-    print 'Help: \n\tCreate file sensible.py on nibiru directory. \n\tSample https://gist.github.com/lesthack/7469198'    
-    sys.exit(0)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'nibiru.db',
+        }
+    }
+    #traceback.print_exc(file=sys.stdout)
+    #print 'Help: \n\tCreate file sensible.py on nibiru directory. \n\tSample https://gist.github.com/lesthack/7469198'    
+    #sys.exit(0)
 
 INSTALLED_APPS = [
     'jet',

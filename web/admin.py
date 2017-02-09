@@ -21,9 +21,9 @@ class itemForm(forms.ModelForm):
 
 @admin.register(item)
 class itemAdmin(nModelAdmin):
-    list_display = ['id', 'name', 'username', 'spassword', 'expire', 'stags', 'created_by']
-    list_display_links = ['id','name']
-    list_display_mobile = ['id', 'name']
+    list_display = ['id', 'sname', 'username', 'spassword', 'expire', 'stags', 'created_by']
+    list_display_links = ['id']
+    list_display_mobile = ['id', 'sname']
     search_fields = ['name', 'tag__name', 'url', 'username', 'password', 'comments', 'created_by__username']
     list_filter = ['expire_at', 'created_at']
     filter_horizontal = ('tag',)
@@ -34,6 +34,14 @@ class itemAdmin(nModelAdmin):
         if not request.user.is_superuser:
             return qs.filter(created_by=request.user)
         return qs
+    
+    def sname(self, obj):
+        if obj.url.__len__() > 0:
+            return format_html(u'<a href="{url}">{name}</a>'.format(url=obj.url, name=obj.name))
+        return obj.name
+    sname.short_description = ''
+    sname.allow_tags = True
+    sname.admin_order_field = 'name'
 
     def expire(self, obj):
         if obj.expire_at:
