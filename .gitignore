@@ -11,5 +11,6 @@ sensible.py
 *.sublime-workspace
 *.sublime-project
 
-# suit
+# varius
 static/*
+web/migrations/
