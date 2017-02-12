@@ -23,7 +23,6 @@ class category(models.Model):
 class item(models.Model):
     name = models.CharField(max_length=254)
     url = models.TextField(blank=True, null=True)
-    category = models.ForeignKey(category, blank=True, null=True)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     never_expire = models.BooleanField(default=False)
