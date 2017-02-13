@@ -53,7 +53,15 @@ class itemAdmin(nModelAdmin):
     expire.admin_order_field = 'expire_at'
 
     def spassword(self, obj):
-        return format_html('<div data-value="{password}" data-id="{id_password}" name="id-{id_password}"><a href="#id-{id_password}" class="hide-show-password" onclick="show_hide_pass(this);"><span id="eye-{id_password}" class="fa fa-eye"></span>&nbsp;<span id="{id_password}" class="hide" style="font-family: Monospace; font-weight: bold; font-size: 14px;">************</span></a></div>'.format(id_password=obj.id, password=obj.password))
+        html = '''
+        <div data-value="{password}" data-id="{id_password}" name="id-{id_password}" class="hide-show-password">
+            <input id="{id_password}" type="text" readonly="readonly" class="password-value hide" value="******" onclick="copy2clipboard(this);"/>
+            <a href="#id-{id_password}" class="eye" onclick="show_hide_pass(this);">
+                <span id="eye-{id_password}" class="fa fa-eye"></span>
+            </a>
+        </div>
+        '''.format(id_password=obj.id, password=obj.password)
+        return format_html(html)
     spassword.short_description = 'Password'
     spassword.allow_tags = True
 

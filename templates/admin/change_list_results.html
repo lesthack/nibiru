@@ -6,17 +6,91 @@
 {% endif %}
 {% if results %}
 <div class="results">
-<style>
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px){
+<script>
+    function show_hide_pass(obj){
+        var id = obj.parentElement.getAttribute('data-id');
+        var eye_pass = document.getElementById('eye-' + id);
+        var pass = document.getElementById(id);
 
-}
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
-    .noalways-visible{
-        display: none;
+        if(pass.className=='password-value hide'){
+            pass.className='password-value show';
+            pass.value = obj.parentElement.getAttribute('data-value');
+            eye_pass.className = 'fa fa-eye-slash';        
+        }
+        else{
+            pass.className='password-value show';
+            pass.value = '******';
+            eye_pass.className = 'fa fa-eye';
+        }
     }
-}
+
+    function copy2clipboard(obj){
+        if(obj.className=='password-value show'){
+            obj.select();
+            try {
+              var successful = document.execCommand('copy');
+              var msg = successful ? 'successful' : 'unsuccessful';
+              console.log('Copying text command was ' + msg);
+            } catch (err) {
+              console.log('Oops, unable to copy');
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!Notification) {
+        console.log('Desktop notifications not available in your browser. Try Chromium.'); 
+        return;
+      }
+
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
+    });
+</script>
+<style>
+    .field-spassword{
+        padding: 0px;
+    }
+    .hide-show-password{
+        padding: 0px;
+        margin: 0px;
+        background: #FFF;
+        border: 1px solid #DDD;
+        border-radius: 3px;
+        line-height: inherit;
+        font-size: 12px;
+        width: 180px;
+    }
+    .password-value{
+        display: inline-block;
+        width: 160px;
+        text-align: center;
+        padding: 5px 10px;
+    }
+    .eye{
+        display: inline-block;
+        width: 16px;
+    }
+    input.password-value{
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+        height: 20px;
+    }
+    input.password-value:hover, input.password-value:active{
+        border: 0px;
+    }
+
+    /* Portrait tablet to landscape and desktop */
+    @media (min-width: 768px){
+
+    }
+    /* Landscape phone to portrait tablet */
+    @media (max-width: 767px) {
+        .noalways-visible{
+            display: none;
+        }
+    }
 </style>
 <table id="result_list">
 <thead>
