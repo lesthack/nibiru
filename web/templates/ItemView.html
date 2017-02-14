@@ -1,0 +1,59 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list jet_tags %}
+
+{% block content %}
+    <div id="content-main" class="item-view">
+        {% load jet_tags %}
+        <fieldset class="module aligned">
+            <div class="form-row field-name">
+                <span class="field-title">Name:</span>
+                <span class="field-value">{{ item.name }}</span>
+            </div>
+            <div class="form-row field-name">
+                <span class="field-title">Url:</span>
+                <span class="field-value"><a href="{{ item.url }}">{{ item.url }}</a></span>
+            </div>
+            <div class="form-row field-name">
+                <span class="field-title">Username:</span>
+                <span class="field-value">{{ item.username }}</span>
+            </div>
+            <div class="form-row field-name">
+                <span class="field-title">Password:</span>
+                <span class="field-value">
+                    <div data-value="{{ item.password }}" data-id="{{ item.id }}" name="id-{{ item.id }}" class="hide-show-password">
+                        <input id="{{ item.id }}" type="text" readonly="readonly" class="password-value hide" value="******" onclick="copy2clipboard(this);"/>
+                        <a href="#id-{{ item.id }}" class="eye" onclick="show_hide_pass(this);">
+                            <span id="eye-{{ item.id }}" class="fa fa-eye"></span>
+                        </a>
+                    </div>
+                </span>
+            </div>
+            <div class="form-row field-name">
+                <span class="field-title">Expire:</span>
+                <span class="field-value">
+                    {% if item.expire_at %}
+                        {{ item.expire_at }}
+                    {% else %}
+                        Never
+                    {% endif %}
+                </span>
+            </div>
+            <div class="form-row field-name">
+                <span class="field-title">Tags:</span>
+                <span class="field-value">
+                    {% for tag in item.tag.all %}
+                        <a href="#{{ tag }}">#{{ tag }}</a>&nbsp;
+                    {% endfor %}
+                </span>
+            </div>
+            <div class="form-row field-name">
+                <span class="field-title">Comments:</span>
+                <span class="field-value">{{ item.comments }}</span>
+            </div>
+        </fieldset>
+        <div class="submit-row">
+            <input type="button" class="default" value="Back" onClick="location.href='/web/item/'" />
+            <input type="button" value="Edit Item" onClick="location.href='/web/item/{{ item.id }}/change/'" />
+        </div>
+    </div>
+{% endblock %}
