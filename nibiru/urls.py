@@ -7,6 +7,7 @@ from django.contrib import admin
 from web.views import *
 
 urlpatterns = [
+    url('', include('social_django.urls', namespace='social')),
     url(r'^$', RedirectView.as_view(url='/web/item/')),
     url(r'^web/item/(?P<item_id>\d+)/view/', admin.site.admin_view(item_view)),
     url(r'^jet/', include('jet.urls', 'jet')),
