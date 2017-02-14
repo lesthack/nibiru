@@ -23,10 +23,11 @@ class itemForm(forms.ModelForm):
 class itemAdmin(nModelAdmin):
     list_display = ['id', 'sname', 'username', 'spassword', 'expire', 'stags', 'created_by']
     list_display_links = ['id']
-    list_display_mobile = ['id', 'sname']
+    list_display_mobile = ['sname']
     search_fields = ['name', 'tag__name', 'url', 'username', 'password', 'comments', 'created_by__username']
     list_filter = ['expire_at', 'created_at']
-    filter_horizontal = ('tag',)
+    list_per_page = 10
+    filter_horizontal = ('tag',)    
     form = itemForm
 
     def get_queryset(self, request): 
