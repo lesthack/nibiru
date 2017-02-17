@@ -19,6 +19,10 @@ class itemForm(forms.ModelForm):
             'password': forms.TextInput(attrs={'placeholder': 'Password', 'class':'vTextField'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(itemForm, self).__init__(*args, **kwargs)
+        self.initial['password'] = self.instance.get_password() 
+
 @admin.register(item)
 class itemAdmin(nModelAdmin):
     list_display = ['id', 'sname', 'username', 'spassword', 'expire', 'stags', 'created_by']
@@ -67,7 +71,7 @@ class itemAdmin(nModelAdmin):
                 <span id="eye-{id_password}" class="fa fa-eye"></span>
             </a>
         </div>
-        '''.format(id_password=obj.id, password=obj.password)
+        '''.format(id_password=obj.id, password=obj.get_password())
         return format_html(html)
     spassword.short_description = 'Password'
     spassword.allow_tags = True
