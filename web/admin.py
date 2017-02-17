@@ -30,6 +30,12 @@ class itemAdmin(nModelAdmin):
     filter_horizontal = ('tag',)    
     form = itemForm
 
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        field = super(itemAdmin, self).formfield_for_dbfield(db_field, request, **kwargs)
+        if db_field.name == 'tag':
+            field.queryset = field.queryset.filter(created_by=request.user)
+        return field
+
     def get_queryset(self, request): 
         qs = super(itemAdmin, self).get_queryset(request)
         if not request.user.is_superuser:
