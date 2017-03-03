@@ -20,7 +20,7 @@
             <div class="form-row field-name">
                 <span class="field-title">Password:</span>
                 <span class="field-value">
-                    <div data-value="{{ item.password }}" data-id="{{ item.id }}" name="id-{{ item.id }}" class="hide-show-password">
+                    <div data-value="{{ item.get_password }}" data-id="{{ item.id }}" name="id-{{ item.id }}" class="hide-show-password">
                         <input id="{{ item.id }}" type="text" readonly="readonly" class="password-value hide" value="******" onclick="copy2clipboard(this);"/>
                         <a href="#id-{{ item.id }}" class="eye" onclick="show_hide_pass(this);">
                             <span id="eye-{{ item.id }}" class="fa fa-eye"></span>
